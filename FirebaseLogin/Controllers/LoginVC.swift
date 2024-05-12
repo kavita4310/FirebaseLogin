@@ -16,6 +16,8 @@ class LoginVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        txtEmail.setLeftPadding(15)
+        txtPassword.setLeftPadding(15)
     }
     
     

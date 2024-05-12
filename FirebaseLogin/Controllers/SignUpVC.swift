@@ -20,6 +20,11 @@ class SignUpVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.ref = Database.database().reference()
+        
+        txtName.setLeftPadding(15)
+        txtEmail.setLeftPadding(15)
+        txtPassword.setLeftPadding(15)
+        
     }
     
     //MARK: Button Sign Up

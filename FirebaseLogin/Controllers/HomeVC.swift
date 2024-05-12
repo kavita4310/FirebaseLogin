@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 import FirebaseStorage
+import SDWebImage
 
 class HomeVC: UIViewController {
     
@@ -207,20 +208,16 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource{
         }
         
         if let image = userLists[indexPath.row]["profileUrl"] as? String {
-            print("imageData-=-=",image)
-            let imgUrl = URL(string: image)!
-            fetchImageFromURL(imageURL: imgUrl) { result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let image):
-                        // Set the downloaded image to the cell's image view
-                        cell.profileImg.image = image
-                    case .failure(let error):
+            print("imageData-=-=", image)
+            if let imgUrl = URL(string: image) {
+                cell.profileImg.sd_setImage(with: imgUrl, placeholderImage: UIImage(named: "Logo")) { (image, error, cacheType, url) in
+                    if let error = error {
                         print("Error fetching image: \(error)")
-                        // Handle error (e.g., display a placeholder image)
-                        cell.profileImg.image = UIImage(named: "placeholder")
                     }
                 }
+            } else {
+                // Handle invalid URL
+                cell.profileImg.image = UIImage(named: "Logo")
             }
         }
         
